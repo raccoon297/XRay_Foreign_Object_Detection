@@ -1,0 +1,54 @@
+{
+  "D": {
+    "candidate": "D_A95_B05",
+    "safe_selection": true,
+    "safe_candidates": 1,
+    "unconstrained_best": "D_A75_B25",
+    "criterion": {
+      "constraints": "At frozen A confidence, TP>=A, FP<=A, each train-defined condition TP>=A.",
+      "rank": [
+        "highest official mAP50-95",
+        "highest AP75",
+        "highest AP50",
+        "higher A weight"
+      ],
+      "no_safe_candidate": "Report unconstrained best with safe_selection=false; never claim safety preservation.",
+      "unconstrained_best_also_reported": true
+    },
+    "recipe": {
+      "family": "D",
+      "anchor": "A",
+      "partner": "B",
+      "A_percent": 95,
+      "partner_percent": 5,
+      "partner_weight": 0.05
+    }
+  },
+  "E": {
+    "candidate": "E_A75_C25",
+    "safe_selection": true,
+    "safe_candidates": 7,
+    "unconstrained_best": "E_A60_C40",
+    "criterion": {
+      "constraints": "At frozen A confidence, TP>=A, FP<=A, each train-defined condition TP>=A.",
+      "rank": [
+        "highest official mAP50-95",
+        "highest AP75",
+        "highest AP50",
+        "higher A weight"
+      ],
+      "no_safe_candidate": "Report unconstrained best with safe_selection=false; never claim safety preservation.",
+      "unconstrained_best_also_reported": true
+    },
+    "recipe": {
+      "family": "E",
+      "anchor": "A",
+      "partner": "C",
+      "A_percent": 75,
+      "partner_percent": 25,
+      "partner_weight": 0.25
+    }
+  },
+  "final_model": "E",
+  "protocol_sha256": "add5fedeb00cc8daca9b1d60ed27ea155c5b5a09070006af349f9ced91ca8c62"
+}

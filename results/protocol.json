@@ -1,0 +1,186 @@
+{
+  "experiment": {
+    "model_order": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "clahe": {
+      "clipLimit": 2.0,
+      "tileGridSize": [
+        8,
+        8
+      ]
+    },
+    "fusion": {
+      "minimum_A_score": 0.05,
+      "minimum_partner_score": 0.1,
+      "minimum_pair_iou": 0.5,
+      "size_ratio_range": [
+        0.67,
+        1.5
+      ],
+      "maximum_center_shift_fraction": 0.3
+    },
+    "methods": {
+      "A": {
+        "checkpoint": "A",
+        "training_clahe_probability": 0.0,
+        "checkpoint_validation_view": "raw",
+        "inference_view": "raw"
+      },
+      "B": {
+        "checkpoint": "B",
+        "training_clahe_probability": 1.0,
+        "checkpoint_validation_view": "clahe",
+        "inference_view": "clahe"
+      },
+      "C": {
+        "checkpoint": "C",
+        "training_clahe_probability": 0.5,
+        "checkpoint_validation_view": "raw",
+        "inference_view": "clahe"
+      }
+    },
+    "families": {
+      "D": {
+        "anchor": "A",
+        "partner": "B"
+      },
+      "E": {
+        "anchor": "A",
+        "partner": "C"
+      }
+    },
+    "A_percent_grid": [
+      5,
+      10,
+      15,
+      20,
+      25,
+      30,
+      35,
+      40,
+      45,
+      50,
+      55,
+      60,
+      65,
+      70,
+      75,
+      80,
+      85,
+      90,
+      95
+    ],
+    "selection": {
+      "constraints": "At frozen A confidence, TP>=A, FP<=A, each train-defined condition TP>=A.",
+      "rank": [
+        "highest official mAP50-95",
+        "highest AP75",
+        "highest AP50",
+        "higher A weight"
+      ],
+      "no_safe_candidate": "Report unconstrained best with safe_selection=false; never claim safety preservation.",
+      "unconstrained_best_also_reported": true
+    },
+    "retained_original_final": {
+      "new_name": "E_A75_C25",
+      "old_name": "V5 F",
+      "A_percent": 75,
+      "partner_percent": 25
+    },
+    "scope": "38 validation combinations, no additional training, test untouched; previously used val and known weights make this exploratory, not independent confirmation. All-metric superiority is a hypothesis, not a prescribed conclusion."
+  },
+  "config": {
+    "name": "yolo26n_marker_removed_seed20261006",
+    "ultralytics_version": "8.4.171",
+    "model": "models/pretrained/yolo26n.pt",
+    "pretrained_sha256": "9b09cc8bf347f0fc8a5f7657480587f25db09b34bf33b0652110fb03a8ad4fef",
+    "preprocessing": {
+      "name": "marker_removed_v1",
+      "channel_spread_threshold": 35,
+      "dilation_kernel": 3,
+      "inpaint_radius": 3,
+      "method": "TELEA",
+      "gray": "median_RGB",
+      "contrast_enhancement": "none"
+    },
+    "train": {
+      "epochs": 100,
+      "patience": 20,
+      "imgsz": 640,
+      "batch": 16,
+      "device": 0,
+      "workers": 0,
+      "cache": "ram",
+      "amp": true,
+      "seed": 20261006,
+      "deterministic": true,
+      "optimizer": "AdamW",
+      "lr0": 0.001,
+      "lrf": 0.01,
+      "cos_lr": true,
+      "momentum": 0.9,
+      "weight_decay": 0.0005,
+      "warmup_epochs": 3.0,
+      "warmup_bias_lr": 0.0,
+      "nbs": 64,
+      "hsv_h": 0.0,
+      "hsv_s": 0.0,
+      "hsv_v": 0.0,
+      "degrees": 0.0,
+      "translate": 0.0,
+      "scale": 0.0,
+      "shear": 0.0,
+      "perspective": 0.0,
+      "flipud": 0.0,
+      "fliplr": 0.5,
+      "mosaic": 0.0,
+      "mixup": 0.0,
+      "copy_paste": 0.0,
+      "cutmix": 0.0,
+      "close_mosaic": 0,
+      "rect": false,
+      "multi_scale": false,
+      "save": true,
+      "plots": true,
+      "val": true
+    },
+    "evaluation": {
+      "confidence_floor": 0.001,
+      "nms_iou": 0.7,
+      "match_iou": 0.5,
+      "max_det": 100,
+      "fp_per_image_budget": 0.5,
+      "preview_count": 12
+    },
+    "policy": {
+      "checkpoint": "validation mAP50-95, then mAP50, then earlier epoch",
+      "threshold": "validation recall maximum subject to FP/image <= 0.5; ties fewer FP then higher confidence",
+      "test": "explicit test command only, after checkpoint and validation threshold are locked",
+      "scope": "positive images only; unmatched boxes are FP, not normal-product false-positive rate"
+    }
+  },
+  "sources": {
+    "configs/experiment.json": "be7ddd080c0b86b1b4e3b0a7ddbafbff6ea5a5e6a9628dcc72439c1e00582f2c",
+    "configs/baseline.json": "ba4b5a6fc5bb6b743416c66fd676e64c5396d71f75ac2cdaffbad2bee66a0550",
+    "src/experiment.py": "04c1d07ab558bbd441c4c428831571ab252a866562d4da7b90ad6b82c8ec1fae",
+    "src/core.py": "e32b784e465217da4261a1da1d56f645d4ec7c6da1856e86982bce4b123ddd11",
+    "src/runtime.py": "136b56ce82dd4946d6f1ce2a8591194d6fdf874bf4176bdf238918276b6d9a00",
+    "src/data.py": "09adb1e07e664a1ef3146891365055b5398ee73d9c66ed0a9285441f06e43190",
+    "src/evaluation.py": "112d5145a840e12ea8546af26247ed96f23958c230f8077ed016c2ca1db2c28c",
+    "src/image_ops.py": "6ab7358e67ae3e074c99c348ed380c25be87b13627d6100725fde338fe7de44d",
+    "src/fusion.py": "62bd5ef59375ca2a3dc9113f0e6a2bc492c9a3aceafe1f10be6395d44ae1ac94"
+  },
+  "model_sha256": {
+    "A": "88a68a1a7f8bbb95e55c47cbc04d5d2d1fb70bca1b61026abdaf355b1e5a53df",
+    "B": "57735ad313ed8972720562a37d4455b5df6763227591bb10bc2e03e2aa2c6c72",
+    "C": "2335516d251bb074b27c5833545e33d7496fe589df56836dd30dcde4597629d5"
+  },
+  "migration_sha256": "57253e5cac390e8a3d4196c8a83e31e7e2b33fc1e6efb41af266f8817b1889dd",
+  "new_training_steps": 0,
+  "test_inferences": 0
+}
