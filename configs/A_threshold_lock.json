@@ -1,0 +1,25 @@
+{
+  "confidence": 0.27183273434638977,
+  "validation": {
+    "confidence": 0.27183273434638977,
+    "TP": 207,
+    "FP": 2,
+    "FN": 2,
+    "recall": 0.9904306220095693,
+    "precision": 0.9904306220095693,
+    "FP_per_image": 0.020202020202020204,
+    "images": 99,
+    "objects": 209
+  },
+  "checkpoint_sha256": "88a68a1a7f8bbb95e55c47cbc04d5d2d1fb70bca1b61026abdaf355b1e5a53df",
+  "selection_lock_sha256": "b2dc0cb67720109ce58fdd0d3a312b7cc5fc4cf80bd93fc2dcf1a9af4d595887",
+  "evaluation_config": {
+    "confidence_floor": 0.001,
+    "nms_iou": 0.7,
+    "match_iou": 0.5,
+    "max_det": 100,
+    "fp_per_image_budget": 0.5,
+    "preview_count": 12
+  },
+  "scope": "validation operating point; engineering FP budget, not a certified safety threshold"
+}

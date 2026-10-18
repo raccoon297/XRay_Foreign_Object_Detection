@@ -1,0 +1,95 @@
+{
+  "model_order": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E"
+  ],
+  "clahe": {
+    "clipLimit": 2.0,
+    "tileGridSize": [
+      8,
+      8
+    ]
+  },
+  "fusion": {
+    "minimum_A_score": 0.05,
+    "minimum_partner_score": 0.1,
+    "minimum_pair_iou": 0.5,
+    "size_ratio_range": [
+      0.67,
+      1.5
+    ],
+    "maximum_center_shift_fraction": 0.3
+  },
+  "methods": {
+    "A": {
+      "checkpoint": "A",
+      "training_clahe_probability": 0.0,
+      "checkpoint_validation_view": "raw",
+      "inference_view": "raw"
+    },
+    "B": {
+      "checkpoint": "B",
+      "training_clahe_probability": 1.0,
+      "checkpoint_validation_view": "clahe",
+      "inference_view": "clahe"
+    },
+    "C": {
+      "checkpoint": "C",
+      "training_clahe_probability": 0.5,
+      "checkpoint_validation_view": "raw",
+      "inference_view": "clahe"
+    }
+  },
+  "families": {
+    "D": {
+      "anchor": "A",
+      "partner": "B"
+    },
+    "E": {
+      "anchor": "A",
+      "partner": "C"
+    }
+  },
+  "A_percent_grid": [
+    5,
+    10,
+    15,
+    20,
+    25,
+    30,
+    35,
+    40,
+    45,
+    50,
+    55,
+    60,
+    65,
+    70,
+    75,
+    80,
+    85,
+    90,
+    95
+  ],
+  "selection": {
+    "constraints": "At frozen A confidence, TP>=A, FP<=A, each train-defined condition TP>=A.",
+    "rank": [
+      "highest official mAP50-95",
+      "highest AP75",
+      "highest AP50",
+      "higher A weight"
+    ],
+    "no_safe_candidate": "Report unconstrained best with safe_selection=false; never claim safety preservation.",
+    "unconstrained_best_also_reported": true
+  },
+  "retained_original_final": {
+    "new_name": "E_A75_C25",
+    "old_name": "V5 F",
+    "A_percent": 75,
+    "partner_percent": 25
+  },
+  "scope": "38 validation combinations, no additional training, test untouched; previously used val and known weights make this exploratory, not independent confirmation. All-metric superiority is a hypothesis, not a prescribed conclusion."
+}
